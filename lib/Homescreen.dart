@@ -17,12 +17,14 @@ class WeatherApp extends StatefulWidget {
 }
 
 class _WeatherAppState extends State<WeatherApp> {
-  final TextEditingController _locationController = TextEditingController();
-  String _weatherData = '';
-
+  final TextEditingController location = TextEditingController();
+  String _weatherData ='';
   void _fetchWeather() async {
-    final location = _locationController.text;
-    final response = await http.get(Uri.parse('https://api.openweathermap.org/data/2.5/weather?q=$location&appid=YOUR_API_KEY'));
+    final maplocation = location.text;
+    final response = await http.get(
+        Uri.parse('https://api.openweathermap.org/data/2.5/weather?q=$maplocation&appid=19fcb507331285160128c01bc11034f4'));
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       setState(() {
@@ -35,6 +37,7 @@ class _WeatherAppState extends State<WeatherApp> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,13 +47,13 @@ class _WeatherAppState extends State<WeatherApp> {
         child: Column(
           children: [
             TextField(
-              controller: _locationController,
+              controller: location,
               decoration: InputDecoration(labelText: 'Enter location'),
             ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: _fetchWeather,
-              child: Text('Save/Update'),
+              child: Text('Search'),
             ),
             SizedBox(height: 20),
             Text(_weatherData),

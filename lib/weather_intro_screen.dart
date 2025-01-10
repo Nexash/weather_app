@@ -13,7 +13,7 @@ class _WeatherIntroScreenState extends State<WeatherIntroScreen> {
   void initState() {
     super.initState();
     // Automatically redirect to homepage after 5 seconds if no action taken
-    Future.delayed(Duration(seconds: 50), () {
+    Future.delayed(Duration(seconds:5), () {
       _navigateToHomepage();
     });
   }
